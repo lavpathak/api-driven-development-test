@@ -1,0 +1,126 @@
+openapi: "3.0.0"
+info:
+  title: Book Service API
+  description: This api is part of Book Service and handles all CRUD operation on book domain object
+  version: '1.0'
+paths:
+  /book:
+    get:
+      description: Get All Books
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/Book'
+    post:
+      description: Saves New Book
+      requestBody:
+        description: user to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /book/{id}:
+    get:
+      description: Get a book by an id
+      parameters:
+        - name: id
+          in: path
+          description: ID of book to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Book'  
+components:
+  schemas:
+    Book: 
+      type: object
+      required:
+        - isbn
+        - title
+        - price
+        - authors
+        - id
+      properties:
+        isbn:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+          format: double
+        authors:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Author'
+        id:
+          type: integer
+          format: int64
+    NewBook:
+      type: object
+      required:
+        - isbn
+        - title
+        - price
+        - authors
+      properties:
+        isbn:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+          format: double
+        authors:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Author'
+    Author:
+      type: object
+      required: 
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+          
+
