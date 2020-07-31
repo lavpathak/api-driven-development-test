@@ -79,7 +79,7 @@ paths:
                     authors: 
                       - firstName: Tiger
                         lastName: Woods
-        '400':
+        '500':
           description: unexpected error
           content:
             application/json:

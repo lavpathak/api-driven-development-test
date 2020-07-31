@@ -10,6 +10,8 @@ info:
 paths:
   /book:
     get:
+      tags:
+        - book
       description: Get All Books
       responses:
         '200':
@@ -21,6 +23,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     post:
+      tags:
+        - book
       description: Saves New Book
       requestBody:
         description: user to be added
